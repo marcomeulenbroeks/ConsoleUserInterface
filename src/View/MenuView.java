@@ -1,6 +1,6 @@
 package View;
 
-import Controller.PostProcessor;
+import Controller.Controller;
 import Model.MenuOptionModel;
 import View.Form.Controls.Label;
 import View.Form.FormView;
@@ -11,8 +11,8 @@ import java.util.List;
 
 
 public class MenuView extends FormView<MenuOptionModel> {
-    public MenuView(PostProcessor<MenuOptionModel> postProcessor) {
-        super(postProcessor, new ArrayList<>() {
+    public MenuView(Controller<MenuOptionModel> controller) {
+        super(controller, new ArrayList<>() {
             {
                 add(new IntegerInputField(new Label("Menu Option"), new ArrayList<>() {
                     {
@@ -33,9 +33,10 @@ public class MenuView extends FormView<MenuOptionModel> {
     }
 
     @Override
-    public void submit(List<InputField> fields, PostProcessor<MenuOptionModel> processor) {
+    public void submit(List<InputField> fields, Controller<MenuOptionModel> controller) {
         IntegerInputField optionField = (IntegerInputField) fields.get(0);
         MenuOptionModel option = new MenuOptionModel(optionField.getValue());
-        processor.process(option);
+        Displayable view = controller.execute(option);
+        view.display();
     }
 }

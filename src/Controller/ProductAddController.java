@@ -7,13 +7,12 @@ import View.ProductListView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductAddController implements PostProcessor<ProductViewModel> {
+public class ProductAddController implements Controller<ProductViewModel> {
     @Override
-    public void process(ProductViewModel productViewModel) {
+    public Displayable execute(ProductViewModel productViewModel) {
         //ToDo: make reference to logic layer
         List<ProductViewModel> models = new ArrayList<>();
         models.add(productViewModel);
-        Displayable view = new ProductListView(models);
-        view.display();
+        return new ProductListView(models);
     }
 }

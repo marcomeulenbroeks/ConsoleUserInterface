@@ -1,6 +1,6 @@
 package View.Form;
 
-import Controller.PostProcessor;
+import Controller.Controller;
 import View.Displayable;
 import View.Form.Input.*;
 
@@ -9,11 +9,11 @@ import java.util.Scanner;
 
 public abstract class FormView<T> implements Displayable, Submittable<T> {
     private static final Scanner scanner = new Scanner(System.in);
-    private final PostProcessor<T> postProcessor;
+    private final Controller<T> controller;
     private final List<InputField> fields;
 
-    public FormView(PostProcessor<T> postProcessor, List<InputField> fields) {
-        this.postProcessor = postProcessor;
+    public FormView(Controller<T> controller, List<InputField> fields) {
+        this.controller = controller;
         this.fields = fields;
     }
 
@@ -29,7 +29,7 @@ public abstract class FormView<T> implements Displayable, Submittable<T> {
                 field.trySetValue(scanner.nextLine());
             }
         });
-        this.submit(this.fields, postProcessor);
+        this.submit(this.fields, controller);
     }
 
     protected void displayInfo() {}
